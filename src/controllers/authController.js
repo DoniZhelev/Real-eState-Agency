@@ -43,7 +43,11 @@ try {
         password,
         repeatPassword});
         
-
+     let token =   await authService.login({
+         username,
+         password
+     });
+     res.cookie(AUTH_COOKIE_NAME, token);
         res.redirect('/')
    } catch(err) {
        // TODO: return ERR
