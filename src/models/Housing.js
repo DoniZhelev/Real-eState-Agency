@@ -31,8 +31,25 @@ let housingSchema = new mongoose.Schema({
         required: true,
         
     }, 
+    tenants: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'User',
+        }
+    ],
+    owner: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }
 
-})
+}, {
+    timestamps: true
+});
+
+housingSchema.method('getTenants', function() {
+    return this.tenants.map(x => x.name).join(', ');
+});
+
 let Housing = mongoose.model('Housing', housingSchema);
 
 
